@@ -20,8 +20,9 @@ const IndexPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(getUsers());
-  }, []);
+  }, [dispatch]);
 
+  console.log(users.length, 'QU');
   const indexOfLastPost: number = currentPage * postsPerPage;
   const indexOfFirstPost: number = indexOfLastPost - postsPerPage;
   const currentUsers: Array<UserType> = users.slice(indexOfFirstPost, indexOfLastPost);

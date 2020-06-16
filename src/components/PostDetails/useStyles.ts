@@ -8,11 +8,11 @@ const useStyles = makeStyles({
     backgroundColor: '#77A0A9',
     color: '#fff',
     paddingLeft: '2rem',
-    // textAlign: 'center',
+    textAlign: 'center',
   },
   content: {
     minHeight: '250px',
-    paddingTop: '2rem',
+    paddingTop: '1rem',
     textAlign: 'center',
   },
 

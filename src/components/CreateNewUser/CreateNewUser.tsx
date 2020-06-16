@@ -26,8 +26,6 @@ const CreateNewUser: React.FC = () => {
     setUserData({ ...userData, [event.target.name]: event.target.value });
   };
 
-  //TODO: disable button
-
   return (
     <Box className={classes.wrapper}>
       <Box className={classes.container}>
