@@ -10,7 +10,7 @@ const Header: React.FC = () => {
           <Link href="/">
             <PostsButton>Users List</PostsButton>
           </Link>
-          <Link href={'/posts/new'}>
+          <Link href={'/users/new'}>
             <AddPostsButton> Create New User</AddPostsButton>
           </Link>
         </ButtonsWrapper>

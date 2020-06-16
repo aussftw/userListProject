@@ -1,25 +1,24 @@
-import { PostsType } from '../../interfaces/index';
 import * as constants from '../constants';
 import { AppAcationTypes } from '../actions/index';
 import { UserType } from '../../interfaces/index';
 
 const initialState = {
   users: [] as Array<UserType>,
-  singlePost: {} as PostsType,
+  singleUser: {} as UserType,
   error: false,
 };
 
 const appReducer = (state = initialState, action: AppAcationTypes) => {
   switch (action.type) {
-    case constants.SET_POSTS:
+    case constants.SET_USERS:
       return {
         ...state,
         users: action.users,
       };
-    case constants.GET_POST:
+    case constants.GET_USER:
       return {
         ...state,
-        singlePost: action.singlePost,
+        singleUser: action.singleUser,
       };
     case constants.ERROR:
       return {

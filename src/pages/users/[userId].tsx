@@ -2,27 +2,27 @@ import { Typography } from '@material-ui/core';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType } from '../../redux/store';
-import { getPost } from '../../redux/actions/index';
+import { getSingleUser } from '../../redux/actions/index';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import PostDetails from '../../components/PostDetails/PostDetails';
 
 const Post: React.FC = () => {
   const dispatch = useDispatch();
-  const singlePost = useSelector((state: AppStateType) => state.app.singlePost);
+  const singleUser = useSelector((state: AppStateType) => state.app.singleUser);
 
-  const id: any = useRouter().query.posts;
-  const postId = parseInt(id);
+  const router = useRouter();
+  const userId = typeof router.query.userId === 'string' && router.query.userId;
 
   useEffect(() => {
-    if (postId) {
-      dispatch(getPost(postId));
+    if (userId) {
+      dispatch(getSingleUser(userId));
     }
-  }, [id]);
+  }, [userId]);
 
   return (
     <>
-      {singlePost ? (
+      {singleUser ? (
         <Wrapper>
           <PostDetails />
         </Wrapper>

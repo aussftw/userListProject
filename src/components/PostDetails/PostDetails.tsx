@@ -1,32 +1,32 @@
-import { Typography, Card, CardHeader, CardContent, TextField, Button, IconButton } from '@material-ui/core';
+import { Typography, Card, CardHeader, CardContent, TextField, Button, IconButton, Box } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppStateType } from '../../redux/store';
-import { deletePost } from '../../redux/actions/index';
+import { deleteUser } from '../../redux/actions/index';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Router from 'next/router';
 import useStyles from './useStyles';
 import { useState } from 'react';
-import { UserPost } from '../../interfaces/index';
 import DialogComponent from '../common/Dialog/index';
+import { CreationUserType } from '../../interfaces/index';
 
 const PostDetails: React.FC = () => {
-  const singlePost = useSelector((state: AppStateType) => state.app.singlePost);
+  const singleUser = useSelector((state: AppStateType) => state.app.singleUser);
   const [activeEdit, setActiveEdit] = useState<boolean>(false);
-  const [postData, setPostData] = useState<UserPost>({ title: '', body: '' });
+  const [userData, setUserData] = useState<CreationUserType>({ name: '', surname: '', desc: '' });
   const [open, setOpen] = useState<boolean>(false);
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const id = singlePost.id;
+  const id = singleUser.id;
 
   const deletePostWrapper = async () => {
-    dispatch(deletePost(id));
+    dispatch(deleteUser(id));
     await Router.push('/');
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPostData({ ...postData, [event.target.name]: event.target.value });
+    setUserData({ ...userData, [event.target.name]: event.target.value });
   };
 
   const handleOpen = () => {
@@ -35,72 +35,81 @@ const PostDetails: React.FC = () => {
 
   return (
     <>
-      {singlePost ? (
+      {singleUser ? (
         <Card className={classes.wrapper}>
           <CardHeader
-            title={activeEdit ? null : singlePost.title}
+            title={'User information'}
             className={classes.header}
             action={
               <>
-                {activeEdit ? (
-                  <div style={{ position: 'absolute', left: '17%' }}>
-                    <TextField
-                      defaultValue={singlePost.body}
-                      placeholder="Titile of your post"
-                      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-                      // @ts-ignore
-                      onChange={(e) => handleChange(e)}
-                      name="title"
-                      autoComplete="false"
-                    />
-                  </div>
-                ) : null}
-                <div>
-                  <IconButton
-                    onClick={() => {
-                      setActiveEdit(!activeEdit);
-                    }}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                </div>
-                <div>
-                  <IconButton onClick={() => deletePostWrapper()}>
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
+                <IconButton
+                  onClick={() => {
+                    setActiveEdit(!activeEdit);
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+
+                <IconButton onClick={() => deletePostWrapper()}>
+                  <DeleteIcon />
+                </IconButton>
               </>
             }
-            style={{ backgroundColor: 'purple' }}
-          ></CardHeader>
+            style={{ backgroundColor: '#77a0a9' }}
+          />
           <CardContent className={classes.content}>
             {activeEdit ? (
-              <TextField
-                defaultValue={singlePost.body}
-                placeholder="tell your stroy"
-                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-                // @ts-ignore
-                onChange={(e) => handleChange(e)}
-                name="body"
-              />
+              <>
+                <Box className={classes.filedsContainer}>
+                  <TextField
+                    defaultValue={singleUser.desc}
+                    placeholder="Change user name"
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                    // @ts-ignore
+                    onChange={(e) => handleChange(e)}
+                    name="name"
+                    className={classes.textField}
+                  />
+                  <TextField
+                    defaultValue={singleUser.desc}
+                    placeholder="Change user surname"
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                    // @ts-ignore
+                    onChange={(e) => handleChange(e)}
+                    name="surname"
+                    className={classes.textField}
+                  />
+                  <TextField
+                    defaultValue={singleUser.desc}
+                    placeholder="Change user description"
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                    // @ts-ignore
+                    onChange={(e) => handleChange(e)}
+                    name="body"
+                    className={classes.textField}
+                  />
+                </Box>
+                <Button onClick={() => handleOpen()} variant="contained" className={classes.btn}>
+                  Edit post
+                </Button>
+                <DialogComponent
+                  open={open}
+                  handleOpen={handleOpen}
+                  userId={singleUser.id}
+                  name={userData.name}
+                  surname={userData.surname}
+                  desc={userData.desc}
+                  edit={true}
+                />
+              </>
             ) : (
-              <Typography className={classes.text}>{singlePost.body}</Typography>
+              <>
+                <Typography className={classes.text}> {singleUser.name}</Typography>
+                <Typography className={classes.text}>{singleUser.surname}</Typography>
+                <Typography className={classes.text}> {singleUser.desc}</Typography>
+              </>
             )}
           </CardContent>
-          {activeEdit ? (
-            <>
-              <Button onClick={() => handleOpen()}>Edit post</Button>
-              <DialogComponent
-                open={open}
-                handleOpen={handleOpen}
-                postId={singlePost.id}
-                title={postData.title}
-                body={postData.body}
-                dialogText={'Are you sure that you want to edit this post?'}
-                edit={true}
-              />
-            </>
-          ) : null}
         </Card>
       ) : (
         <Typography> Nothing here</Typography>

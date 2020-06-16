@@ -5,20 +5,22 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { editPost, deletePost } from '../../../redux/actions/index';
-import { useSelector, useDispatch } from 'react-redux';
+import { editUser, deleteUser } from '../../../redux/actions/index';
+import { useDispatch } from 'react-redux';
 
 interface IdialogComponent {
   open: boolean;
   handleOpen: () => void;
-  postId?: number;
-  title?: string;
-  body?: string;
+  userId?: number;
+  name?: string;
+  surname: string;
+  desc?: string;
   dialogText?: string;
   edit: boolean;
 }
 
 const DialogComponent: React.FC<IdialogComponent> = (props: IdialogComponent) => {
+  console.log(typeof props.userId);
   const dispatch = useDispatch();
   return (
     <Dialog
@@ -28,15 +30,16 @@ const DialogComponent: React.FC<IdialogComponent> = (props: IdialogComponent) =>
       aria-labelledby="alert-dialog-slide-title"
       aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle id="alert-dialog-slide-title">{props.dialogText}</DialogTitle>
-      {/* <DialogContent>
-        <DialogContentText id="alert-dialog-slide-description">{props.dialogText}</DialogContentText>
-      </DialogContent> */}
+      <DialogTitle id="alert-dialog-slide-title">
+        {props.edit
+          ? 'Are you sure that you want to edit this user?'
+          : 'Are you sure that you want to delete this user'}
+      </DialogTitle>
       <DialogActions>
         <Button onClick={props.handleOpen} color="primary">
           Disagree
         </Button>
-        <Button onClick={() => dispatch(editPost(props.postId, props.title, props.body))} color="primary">
+        <Button onClick={() => dispatch(editUser(props.userId, props.name, props.surname, props.desc))} color="primary">
           Agree
         </Button>
       </DialogActions>

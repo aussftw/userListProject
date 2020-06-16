@@ -11,16 +11,16 @@ const API = {
   getUsers() {
     return instance.get(`users`).then((response) => response.data);
   },
-  getPost(userId: number) {
+  getUser(userId: string) {
     return instance.get(`user/${userId}`);
   },
-  postPost(name: string, surname: string, desc: string) {
+  postUser(name: string, surname: string, desc: string) {
     return instance.post(`users`, { name, surname, desc });
   },
-  removePost(userId: number) {
+  removeUser(userId: number) {
     return instance.delete(`user/${userId}`);
   },
-  editPost(userId: number, name: string, surname: string, desc: string) {
+  editUser(userId: number, name: string, surname: string, desc: string) {
     return instance.put(`user/${userId}`, { name, surname, desc });
   },
 };

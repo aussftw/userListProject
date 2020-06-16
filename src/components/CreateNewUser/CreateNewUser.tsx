@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createPost } from '../../redux/actions/index';
+import { createUser } from '../../redux/actions/index';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Typography, Box, Button, Modal, Backdrop, Fade, Container } from '@material-ui/core';
 import { CreationUserType } from '../../interfaces/index';
@@ -16,7 +16,7 @@ const CreateNewUser: React.FC = () => {
   const classes = useStyles();
 
   const onSubmit = async () => {
-    dispatch(createPost(userData.name, userData.surname, userData.desc));
+    dispatch(createUser(userData.name, userData.surname, userData.desc));
     setUserData({ name: '', surname: '', desc: '' });
     setOpen(false);
     await Router.push('/');

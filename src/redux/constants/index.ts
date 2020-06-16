@@ -1,3 +1,3 @@
-export const SET_POSTS = 'SET_POSTS';
-export const GET_POST = 'GET_POST';
+export const SET_USERS = 'SET_USERS';
+export const GET_USER = 'GET_USER';
 export const ERROR = 'ERROR';

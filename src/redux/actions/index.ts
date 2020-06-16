@@ -1,6 +1,5 @@
 import API from '../../api/api';
 import * as constants from '../constants';
-import { PostsType } from '../../interfaces/index';
 import Router from 'next/router';
 import { UserType } from '../../interfaces';
 
@@ -15,60 +14,60 @@ export const setError = (error: boolean): SetError => {
   };
 };
 
-type SetSinglePost = {
-  type: typeof constants.GET_POST;
-  singlePost: PostsType;
+type SetSingleUser = {
+  type: typeof constants.GET_USER;
+  singleUser: UserType;
 };
-export const setSinglePost = (singlePost: PostsType): SetSinglePost => {
+export const setSingleUser = (singleUser: UserType): SetSingleUser => {
   return {
-    type: constants.GET_POST,
-    singlePost,
+    type: constants.GET_USER,
+    singleUser,
   };
 };
 
-type SetPostsType = {
-  type: typeof constants.SET_POSTS;
+type SetUsersType = {
+  type: typeof constants.SET_USERS;
   users: any;
 };
-export const setPosts = (users: UserType): SetPostsType => {
+export const setUsers = (users: UserType): SetUsersType => {
   return {
-    type: constants.SET_POSTS,
+    type: constants.SET_USERS,
     users,
   };
 };
 
-export const createPost = (name: string, surname: string, desc: string) => async (dispatch: any) => {
-  const res = await API.postPost(name, surname, desc);
+export const createUser = (name: string, surname: string, desc: string) => async (dispatch: any) => {
+  const res = await API.postUser(name, surname, desc);
   if (res.status === 201) {
     const data = await API.getUsers();
-    dispatch(setPosts(data));
+    dispatch(setUsers(data));
   }
 };
 
-export const deletePost = (postId: number) => async (dispatch: any) => {
-  const res = await API.removePost(postId);
+export const deleteUser = (userId: number) => async (dispatch: any) => {
+  const res = await API.removeUser(userId);
   if (res.status === 200) {
     setError(false);
     const data = await API.getUsers();
-    dispatch(setPosts(data));
+    dispatch(setUsers(data));
   } else {
     dispatch(setError(true));
   }
 };
 
-export const getPost = (postId: number) => async (dispatch: any) => {
-  const res = await API.getPost(postId);
+export const getSingleUser = (userId: string) => async (dispatch: any) => {
+  const res = await API.getUser(userId);
   if (res.status === 200) {
-    dispatch(setSinglePost(res.data));
+    dispatch(setSingleUser(res.data));
   }
 };
 
-export const editPost = (userId: number, name: string, surname: string, desc: string) => async (dispatch: any) => {
-  const res = await API.editPost(userId, name, surname, desc);
+export const editUser = (userId: number, name: string, surname: string, desc: string) => async (dispatch: any) => {
+  const res = await API.editUser(userId, name, surname, desc);
   if (res.status === 200) {
     const data = await API.getUsers();
-    dispatch(setPosts(data));
-    await Router.push(`/posts/${userId}`);
+    dispatch(setSingleUser(data));
+    await Router.push('/');
   } else {
     dispatch(setError(true));
   }
@@ -76,7 +75,7 @@ export const editPost = (userId: number, name: string, surname: string, desc: st
 
 export const getUsers = () => async (dispatch: any) => {
   const data = await API.getUsers();
-  dispatch(setPosts(data));
+  dispatch(setUsers(data));
 };
 
-export type AppAcationTypes = SetError | SetSinglePost | SetPostsType;
+export type AppAcationTypes = SetError | SetSingleUser | SetUsersType;
