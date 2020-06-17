@@ -72,7 +72,7 @@ const CreateNewUser: React.FC = () => {
             rows={10}
           />
           <Button variant="contained" className={classes.btn} onClick={() => setOpen(true)}>
-            Create a new user
+            Create new user
           </Button>
           <Modal
             aria-labelledby="transition-modal-title"

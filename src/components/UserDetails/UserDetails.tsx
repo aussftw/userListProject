@@ -10,7 +10,7 @@ import { useState } from 'react';
 import DialogComponent from '../common/Dialog/index';
 import { CreationUserType } from '../../interfaces/index';
 
-const PostDetails: React.FC = () => {
+const UserDetails: React.FC = () => {
   const singleUser = useSelector((state: AppStateType) => state.app.singleUser);
   const [userData, setUserData] = useState<CreationUserType>({
     name: '',
@@ -39,6 +39,7 @@ const PostDetails: React.FC = () => {
     setOpen(!open);
   };
 
+  // at leat some validation
   const isEmpty = !Object.values(userData).every((x) => x !== null && x !== '');
 
   return (
@@ -115,9 +116,13 @@ const PostDetails: React.FC = () => {
               </>
             ) : (
               <>
-                <Typography className={classes.text}>{singleUser.name}</Typography>
-                <Typography className={classes.text}>{singleUser.surname}</Typography>
-                <Typography className={classes.text}>{singleUser.desc}</Typography>
+                <Box className={classes.textContainer}>
+                  <Typography className={classes.text}>
+                    {singleUser.name} {singleUser.surname}
+                  </Typography>
+                </Box>
+
+                <Typography className={classes.desc}>{singleUser.desc}</Typography>
               </>
             )}
           </CardContent>
@@ -129,4 +134,4 @@ const PostDetails: React.FC = () => {
   );
 };
 
-export default PostDetails;
+export default UserDetails;

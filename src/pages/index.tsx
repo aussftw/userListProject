@@ -8,26 +8,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Link from 'next/link';
 import styled from 'styled-components';
-import Router from 'next/router';
-import UsersContainer from '../components/UsersContainer/UsersContainer';
 
 const IndexPage: React.FC = () => {
   const dispatch = useDispatch();
   const users: [] = useSelector((state: AppStateType) => state.app.users);
-  const [open, setOpen] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [postsPerPage, setPostsPerPage] = useState<number>(5);
 
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
-
-  console.log(users.length, 'QU');
-  const indexOfLastPost: number = currentPage * postsPerPage;
-  const indexOfFirstPost: number = indexOfLastPost - postsPerPage;
-  const currentUsers: Array<UserType> = users.slice(indexOfFirstPost, indexOfLastPost);
-  const totalUsers: number = users.length;
-  const pageNumbers: Array<number> = [];
 
   return (
     <>
@@ -69,31 +57,6 @@ const IndexPage: React.FC = () => {
           <Typography>There are no available users, but you can create one.</Typography>
         )}
       </UsersWrapper>
-
-      {/* <div
-        style={{
-          marginTop: 200,
-          marginBottom: 200,
-          justifyContent: 'center',
-          display: 'flex',
-          backgroundColor: 'red',
-        }}
-      >
-        {pageNumbers.length < 0 ? (
-          <p>loading</p>
-        ) : (
-          pageNumbers.map((number: number, index: number) => (
-            <button
-              style={{ color: '#000', fontSize: 30 }}
-              key={number}
-              onClick={() => Router.push(`/?page=${number + 1}`)}
-            >
-              {console.log(number)}
-              {index}
-            </button>
-          ))
-        )}
-      </div> */}
     </>
   );
 };

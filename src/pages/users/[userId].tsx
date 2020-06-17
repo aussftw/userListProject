@@ -5,9 +5,9 @@ import { AppStateType } from '../../redux/store';
 import { getSingleUser } from '../../redux/actions/index';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import PostDetails from '../../components/PostDetails/PostDetails';
+import UserDetails from '../../components/UserDetails/UserDetails';
 
-const Post: React.FC = () => {
+const User: React.FC = () => {
   const dispatch = useDispatch();
   const singleUser = useSelector((state: AppStateType) => state.app.singleUser);
 
@@ -24,7 +24,7 @@ const Post: React.FC = () => {
     <>
       {singleUser ? (
         <Wrapper>
-          <PostDetails />
+          <UserDetails />
         </Wrapper>
       ) : (
         <Wrapper>

@@ -13,7 +13,6 @@ const useStyles = makeStyles({
   content: {
     minHeight: '300px',
     paddingTop: '1rem',
-    // margin: '0 auto',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -21,9 +20,18 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
 
+  textContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+
   text: {
-    marginTop: '1rem',
+    marginBottom: '2rem',
     fontSize: '18px',
+  },
+
+  desc: {
+    fontSize: '16px',
   },
 
   textField: {

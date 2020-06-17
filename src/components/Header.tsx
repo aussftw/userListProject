@@ -8,10 +8,10 @@ const Header: React.FC = () => {
       <StyledHeader>
         <ButtonsWrapper>
           <Link href="/">
-            <PostsButton>Users List</PostsButton>
+            <UsersButton>Users List</UsersButton>
           </Link>
           <Link href={'/users/new'}>
-            <AddPostsButton> Create New User</AddPostsButton>
+            <AddUserButton> Create New User</AddUserButton>
           </Link>
         </ButtonsWrapper>
       </StyledHeader>
@@ -39,7 +39,7 @@ const ButtonsWrapper = styled.div`
   width: 100%;
 `;
 
-const PostsButton = styled.p`
+const UsersButton = styled.p`
   cursor: pointer;
   font-weight: 600;
   font-size: 14px;
@@ -49,7 +49,7 @@ const PostsButton = styled.p`
   }
 `;
 
-const AddPostsButton = styled.button`
+const AddUserButton = styled.button`
   cursor: pointer;
   border-radius: 10px;
   padding: 10px 30px;
