@@ -11,9 +11,14 @@ const useStyles = makeStyles({
     textAlign: 'center',
   },
   content: {
-    minHeight: '250px',
+    minHeight: '300px',
     paddingTop: '1rem',
-    textAlign: 'center',
+    // margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
   },
 
   text: {
@@ -22,7 +27,7 @@ const useStyles = makeStyles({
   },
 
   textField: {
-    width: '70%',
+    width: '100%',
     marginBottom: '20px',
     '& label.Mui-focused': {
       color: 'white',

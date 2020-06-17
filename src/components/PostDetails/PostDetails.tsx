@@ -1,7 +1,7 @@
 import { Typography, Card, CardHeader, CardContent, TextField, Button, IconButton, Box } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppStateType } from '../../redux/store';
-import { deleteUser, editUser } from '../../redux/actions/index';
+import { editUser } from '../../redux/actions/index';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Router from 'next/router';
@@ -25,11 +25,6 @@ const PostDetails: React.FC = () => {
 
   const id = singleUser.id;
 
-  const deleteUserWrapper = async () => {
-    dispatch(deleteUser(id));
-    await Router.push('/users/new');
-  };
-
   const editWrapper = async () => {
     dispatch(editUser(id, userData.name, userData.surname, userData.desc));
     setUserData({ name: '', surname: '', desc: '' });
@@ -43,6 +38,8 @@ const PostDetails: React.FC = () => {
   const handleOpen = () => {
     setOpen(!open);
   };
+
+  const isEmpty = !Object.values(userData).every((x) => x !== null && x !== '');
 
   return (
     <>
@@ -82,7 +79,6 @@ const PostDetails: React.FC = () => {
               <>
                 <Box>
                   <TextField
-                    defaultValue={singleUser.name}
                     placeholder="Change user name"
                     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
                     // @ts-ignore
@@ -91,7 +87,6 @@ const PostDetails: React.FC = () => {
                     className={classes.textField}
                   />
                   <TextField
-                    defaultValue={singleUser.surname}
                     placeholder="Change user surname"
                     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
                     // @ts-ignore
@@ -100,16 +95,21 @@ const PostDetails: React.FC = () => {
                     className={classes.textField}
                   />
                   <TextField
-                    defaultValue={singleUser.desc}
                     placeholder="Change user description"
                     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
                     // @ts-ignore
                     onChange={(e) => handleChange(e)}
                     name="desc"
                     className={classes.textField}
+                    multiline={true}
                   />
                 </Box>
-                <Button onClick={() => editWrapper()} variant="contained" className={classes.btn}>
+                <Button
+                  onClick={() => editWrapper()}
+                  variant="contained"
+                  className={classes.btn}
+                  disabled={isEmpty ? true : false}
+                >
                   Edit post
                 </Button>
               </>

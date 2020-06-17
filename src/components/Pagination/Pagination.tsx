@@ -15,13 +15,23 @@ const Pagination: React.FC<Props> = (props) => {
     pageNumbers.push(i);
   }
 
+  console.log(props.postsPerPage, 'pagi');
+  console.log(props.totalPosts, 'total');
+
   return (
-    <div className={}>
-      {pageNumbers.map((number) => {
-        <Button key={number} onClick={() => Router.push(`/?page=${number + 1}`)}>
-          {number}
-        </Button>;
-      })}
+    <div
+      style={{ marginTop: 200, marginBottom: 200, justifyContent: 'center', display: 'flex', backgroundColor: 'red' }}
+    >
+      {pageNumbers.map((number: number, index: number) => (
+        <button
+          style={{ color: '#000', fontSize: 30 }}
+          key={number}
+          onClick={() => Router.push(`/?page=${number + 1}`)}
+        >
+          {console.log(number)}
+          {index}
+        </button>
+      ))}
     </div>
   );
 };

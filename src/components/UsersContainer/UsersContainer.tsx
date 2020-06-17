@@ -7,17 +7,17 @@ import { red } from '@material-ui/core/colors';
 // };
 
 const UsersContainer: React.FC<any> = ({ users }) => {
-  console.log(users);
+  console.log(users, 'props');
   return (
-    <>
-      {users.map(() => (
+    <div>
+      {users.map((user: UserType) => (
         <div key={Math.random()} style={{ backgroundColor: '#red', height: 100, width: 100 }}>
-          <p style={{ fontSize: 28, color: 'red' }}>{users.name}</p>
-          <p>{users.surname}</p>
-          <p>{users.desc}</p>
+          <p style={{ fontSize: 28, color: 'red' }}>{user.name}</p>
+          <p>{user.surname}</p>
+          <p>{user.desc}</p>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

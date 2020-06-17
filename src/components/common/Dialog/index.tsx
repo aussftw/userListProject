@@ -25,11 +25,11 @@ const DialogComponent: React.FC<IdialogComponent> = (props: IdialogComponent) =>
   const classes = useStyles();
 
   const deleteUserWrapper = async () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
     dispatch(deleteUser(props.userId));
     await Router.push('/');
   };
-
-  console.log(props, 'props');
 
   return (
     <Dialog open={props.open} keepMounted onClose={props.handleOpen}>

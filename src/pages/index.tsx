@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserType } from '../interfaces/index';
-import { Card, Typography, CardHeader, CardContent, CardActions, Divider, IconButton, Button } from '@material-ui/core';
-import Pagination from '@material-ui/lab/Pagination';
-import { getUsers, deleteUser, editUser } from '../redux/actions/index';
+import { Card, Typography, CardHeader, CardContent, CardActions, Divider, IconButton } from '@material-ui/core';
+import { getUsers, deleteUser } from '../redux/actions/index';
 import { AppStateType } from '../redux/store';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -15,6 +14,7 @@ import UsersContainer from '../components/UsersContainer/UsersContainer';
 const IndexPage: React.FC = () => {
   const dispatch = useDispatch();
   const users: [] = useSelector((state: AppStateType) => state.app.users);
+  const [open, setOpen] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [postsPerPage, setPostsPerPage] = useState<number>(5);
 
@@ -29,24 +29,12 @@ const IndexPage: React.FC = () => {
   const totalUsers: number = users.length;
   const pageNumbers: Array<number> = [];
 
-  console.log(currentUsers);
-
-  for (let i = 1; i <= Math.ceil(totalUsers / postsPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  // console.log(indexOfFirstPost, '1stpsot');
-  // console.log(indexOfLastPost, 'last');
-  // console.log(currentPost, 'current');
-  // console.log(totalUsers, 'totalusers');
-  console.log(pageNumbers, 'pageNu');
-
   return (
     <>
-      <PostsWrapper>
+      <UsersWrapper>
         {users.length > 0 ? (
-          [...currentUsers].reverse().map((user: UserType) => (
-            <Post key={user.id}>
+          [...users].reverse().map((user: UserType) => (
+            <User key={user.id}>
               <Card>
                 <CardHeader
                   title={
@@ -75,30 +63,44 @@ const IndexPage: React.FC = () => {
                   </IconButton>
                 </CardActions>
               </Card>
-            </Post>
+            </User>
           ))
         ) : (
           <Typography>There are no available users, but you can create one.</Typography>
         )}
+      </UsersWrapper>
 
-        {/* 
-      {users.length > 0 ? <UsersContainer users={currentUsers} /> : <p>LOADING</p>} */}
-      </PostsWrapper>
-
-      {pageNumbers.map((number) => {
-        <PaginationContaoner>
-          <Button key={number} onClick={() => Router.push(`/?page=${number + 1}`)} variant="contained" color="primary">
-            {number}
-          </Button>
-        </PaginationContaoner>;
-      })}
+      {/* <div
+        style={{
+          marginTop: 200,
+          marginBottom: 200,
+          justifyContent: 'center',
+          display: 'flex',
+          backgroundColor: 'red',
+        }}
+      >
+        {pageNumbers.length < 0 ? (
+          <p>loading</p>
+        ) : (
+          pageNumbers.map((number: number, index: number) => (
+            <button
+              style={{ color: '#000', fontSize: 30 }}
+              key={number}
+              onClick={() => Router.push(`/?page=${number + 1}`)}
+            >
+              {console.log(number)}
+              {index}
+            </button>
+          ))
+        )}
+      </div> */}
     </>
   );
 };
 
 export default IndexPage;
 
-const Post = styled.div`
+const User = styled.div`
   padding-right: 1rem;
   width: 32.7%;
   margin-bottom: 2rem;
@@ -120,18 +122,11 @@ const Post = styled.div`
   }
 `;
 
-const PostsWrapper = styled.div`
+const UsersWrapper = styled.div`
   display: flex;
   flex-flow: row wrap !important;
   justify-content: flex-start;
   margin: 5rem 1rem;
   cursor: pointer;
-  flex-direction: column;
-`;
-
-const PaginationContaoner = styled.div`
-  display: 'flex';
-  height: 10rem;
-  background-color: 'grey';
-  width: 300px;
+  // flex-direction: column;
 `;
