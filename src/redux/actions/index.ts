@@ -64,16 +64,20 @@ export const createUser = (name: string, surname: string, desc: string) => async
   const res = await API.postUser(name, surname, desc);
   if (res.status === 201) {
     const data = await API.getUsers();
-    dispatch(setUsers(data));
+    dispatch(setUsers(data.data));
   }
 };
 
 export const deleteUser = (userId: number) => async (dispatch: any) => {
   const res = await API.removeUser(userId);
+  dispatch(setUserPendning(true));
   if (res.status === 200) {
-    setError(false);
-    const data = await API.getUsers();
-    dispatch(setUsers(data));
+    dispatch(setUserPendning(false));
+    const response = await API.getUsers();
+    if (response.status === 200) {
+      dispatch(setUserPendning(false));
+      dispatch(setUsers(response.data));
+    }
   } else {
     dispatch(setError(true));
   }
@@ -93,9 +97,15 @@ export const getSingleUser = (userId: string) => async (dispatch: any) => {
 export const editUser = (userId: number, name: string, surname: string, desc: string) => async (dispatch: any) => {
   const res = await API.editUser(userId, name, surname, desc);
   if (res.status === 200) {
-    const data = await API.getUsers();
-    dispatch(setSingleUser(data));
-    await Router.push('/');
+    const response = await API.getUsers();
+    dispatch(setUsersPendning(true));
+    if (res.status === 200) {
+      dispatch(setUsers(response.data));
+      await Router.push('/');
+      dispatch(setUsersPendning(false));
+    } else {
+      dispatch(setError(true));
+    }
   } else {
     dispatch(setError(true));
   }

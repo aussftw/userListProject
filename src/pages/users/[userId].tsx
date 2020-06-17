@@ -9,7 +9,7 @@ import UserDetails from '../../components/UserDetails/UserDetails';
 
 const User: React.FC = () => {
   const dispatch = useDispatch();
-  const singleUser = useSelector((state: AppStateType) => state.app.singleUser);
+  const userLoading = useSelector((state: AppStateType) => state.app.userLoading);
 
   const router = useRouter();
   const userId = typeof router.query.userId === 'string' && router.query.userId;
@@ -22,13 +22,13 @@ const User: React.FC = () => {
 
   return (
     <>
-      {singleUser ? (
+      {userLoading ? (
         <Wrapper>
-          <UserDetails />
+          <Typography style={{ fontSize: 24, fontWeight: 'bold' }}>Loading...</Typography>
         </Wrapper>
       ) : (
         <Wrapper>
-          <Typography> Nothing here</Typography>
+          <UserDetails />
         </Wrapper>
       )}
     </>
