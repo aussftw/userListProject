@@ -18,6 +18,18 @@ type SetSingleUser = {
   type: typeof constants.GET_USER;
   singleUser: UserType;
 };
+type SetUserPendingType = {
+  type: typeof constants.SET_USER_PENDING;
+  userLoading: boolean;
+};
+
+export const setUserPendning = (userLoading: boolean): SetUserPendingType => {
+  return {
+    type: constants.SET_USER_PENDING,
+    userLoading,
+  };
+};
+
 export const setSingleUser = (singleUser: UserType): SetSingleUser => {
   return {
     type: constants.GET_USER,
@@ -29,10 +41,22 @@ type SetUsersType = {
   type: typeof constants.SET_USERS;
   users: any;
 };
+
+type SetUsersPendingType = {
+  type: typeof constants.SET_USERS_PENDING;
+  usersLoading: boolean;
+};
 export const setUsers = (users: UserType): SetUsersType => {
   return {
     type: constants.SET_USERS,
     users,
+  };
+};
+
+export const setUsersPendning = (usersLoading: boolean): SetUsersPendingType => {
+  return {
+    type: constants.SET_USERS_PENDING,
+    usersLoading,
   };
 };
 
@@ -56,9 +80,13 @@ export const deleteUser = (userId: number) => async (dispatch: any) => {
 };
 
 export const getSingleUser = (userId: string) => async (dispatch: any) => {
+  dispatch(setUserPendning(true));
   const res = await API.getUser(userId);
   if (res.status === 200) {
     dispatch(setSingleUser(res.data));
+    dispatch(setUserPendning(false));
+  } else {
+    dispatch(setError(true));
   }
 };
 
@@ -74,8 +102,14 @@ export const editUser = (userId: number, name: string, surname: string, desc: st
 };
 
 export const getUsers = () => async (dispatch: any) => {
-  const data = await API.getUsers();
-  dispatch(setUsers(data));
+  dispatch(setUsersPendning(true));
+  const res = await API.getUsers();
+  if (res.status === 200) {
+    dispatch(setUsers(res.data));
+    dispatch(setUsersPendning(false));
+  } else {
+    dispatch(setError(true));
+  }
 };
 
-export type AppAcationTypes = SetError | SetSingleUser | SetUsersType;
+export type AppAcationTypes = SetError | SetSingleUser | SetUsersType | SetUsersPendingType | SetUserPendingType;

@@ -8,7 +8,7 @@ const instance = axios.create({
 });
 const API = {
   getUsers() {
-    return instance.get(`users`).then((response) => response.data);
+    return instance.get(`users`).then((response) => response);
   },
   getUser(userId: string) {
     return instance.get(`user/${userId}`);

@@ -58,7 +58,6 @@ const UserDetails: React.FC = () => {
                 >
                   <EditIcon />
                 </IconButton>
-
                 <IconButton onClick={() => handleOpen()}>
                   <DeleteIcon />
                 </IconButton>

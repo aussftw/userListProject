@@ -14,6 +14,5 @@ const middlewares = [thunk, logger];
 export type AppStateType = ReturnType<typeof rootReducer>;
 
 const store = createStore(rootReducer, applyMiddleware(...middlewares));
-console.log(store.getState(), '<<<--------------S_T_O_R_E');
 
 export default store;

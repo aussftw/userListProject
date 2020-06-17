@@ -35,7 +35,7 @@ const User: React.FC = () => {
   );
 };
 
-export default Post;
+export default User;
 
 const Wrapper = styled.div`
   margin: 7rem auto;

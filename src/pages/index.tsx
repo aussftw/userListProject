@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserType } from '../interfaces/index';
 import { Card, Typography, CardHeader, CardContent, CardActions, Divider, IconButton } from '@material-ui/core';
@@ -12,6 +12,7 @@ import styled from 'styled-components';
 const IndexPage: React.FC = () => {
   const dispatch = useDispatch();
   const users: [] = useSelector((state: AppStateType) => state.app.users);
+  const usersLoading: boolean = useSelector((state: AppStateType) => state.app.usersLoading);
 
   useEffect(() => {
     dispatch(getUsers());
@@ -20,7 +21,7 @@ const IndexPage: React.FC = () => {
   return (
     <>
       <UsersWrapper>
-        {users.length > 0 ? (
+        {!usersLoading ? (
           [...users].reverse().map((user: UserType) => (
             <User key={user.id}>
               <Card>
@@ -36,7 +37,7 @@ const IndexPage: React.FC = () => {
                 />
                 <CardContent style={{ minHeight: '170px' }}>
                   <Typography>
-                    {typeof user.desc === 'undefined' || user.desc === '' ? 'Oopps, empty post, you see!' : user.desc}
+                    {typeof user.desc === 'undefined' || user.desc === '' ? 'Description not aveliable!' : user.desc}
                   </Typography>
                 </CardContent>
                 <CardActions style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -54,7 +55,9 @@ const IndexPage: React.FC = () => {
             </User>
           ))
         ) : (
-          <Typography>There are no available users, but you can create one.</Typography>
+          <LoaderWrapper>
+            <Typography style={{ fontSize: 24, fontWeight: 'bold' }}>Loading...</Typography>
+          </LoaderWrapper>
         )}
       </UsersWrapper>
     </>
@@ -90,6 +93,10 @@ const UsersWrapper = styled.div`
   flex-flow: row wrap !important;
   justify-content: flex-start;
   margin: 5rem 1rem;
-  cursor: pointer;
-  // flex-direction: column;
+`;
+
+const LoaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 5rem auto;
 `;
