@@ -1,6 +1,5 @@
 #  UserList test task
-Test task for develops today 
-
+Simple representation of CRUD
 
 
 ## Usage
