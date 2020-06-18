@@ -40,7 +40,7 @@ const UserDetails: React.FC = () => {
   };
 
   // at leat some validation
-  const isEmpty = Object.values(userData).every((x) => x !== null && x !== '');
+  const isEmpty = !Object.values(userData).every((x) => x !== null && x !== '');
 
   return (
     <>
