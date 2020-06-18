@@ -101,7 +101,7 @@ export const editUser = (userId: number, name: string, surname: string, desc: st
     dispatch(setUsersPendning(true));
     if (res.status === 200) {
       dispatch(setUsers(response.data));
-      await Router.push('/');
+      Router.push('/');
       dispatch(setUsersPendning(false));
     } else {
       dispatch(setError(true));

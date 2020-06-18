@@ -6,6 +6,7 @@ import { getSingleUser } from '../../redux/actions/index';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import UserDetails from '../../components/UserDetails/UserDetails';
+import { LoaderWrapper } from '../index';
 
 const User: React.FC = () => {
   const dispatch = useDispatch();
@@ -23,9 +24,9 @@ const User: React.FC = () => {
   return (
     <>
       {userLoading ? (
-        <Wrapper>
+        <LoaderWrapper>
           <Typography style={{ fontSize: 24, fontWeight: 'bold' }}>Loading...</Typography>
-        </Wrapper>
+        </LoaderWrapper>
       ) : (
         <Wrapper>
           <UserDetails />

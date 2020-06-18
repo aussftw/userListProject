@@ -38,7 +38,7 @@ const CreateNewUser: React.FC = () => {
             name="name"
             // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
-            onChange={(e) => handleChange(e)}
+            onChange={(e: React.ChangeEvent) => handleChange(e)}
             variant="outlined"
             placeholder="Name"
             validators={['required', 'matchRegexp:[^\\s]{3}(.){0,117}']}
@@ -50,7 +50,7 @@ const CreateNewUser: React.FC = () => {
             name="surname"
             // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
-            onChange={(e) => handleChange(e)}
+            onChange={(e: React.ChangeEvent) => handleChange(e)}
             variant="outlined"
             placeholder="Surname"
             validators={['required', 'matchRegexp:[^\\s]{3}(.){0,117}']}
@@ -61,13 +61,13 @@ const CreateNewUser: React.FC = () => {
             value={userData.desc}
             // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
-            onChange={(e) => handleChange(e)}
+            onChange={(e: React.ChangeEvent) => handleChange(e)}
             name="desc"
             multiline={true}
             variant="outlined"
             placeholder="Description"
-            validators={['required', 'matchRegexp:[^\\s]{3}(.){0,117}']}
-            errorMessages={['This field is required', 'Text must be between 3 and 3000 characters']}
+            validators={['required', 'matchRegexp:[^\\s]{3}(.){0,300}']}
+            errorMessages={['This field is required', 'Text must be between 3 and 300 characters']}
             className={classes.textField}
             rows={10}
           />

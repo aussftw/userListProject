@@ -9,24 +9,11 @@ import { useDispatch } from 'react-redux';
 import Router from 'next/router';
 import useStyles from './useSstyles';
 
-interface IdialogComponent {
-  open: boolean;
-  handleOpen: () => void;
-  userId?: number;
-  name?: string;
-  surname?: string;
-  desc?: string;
-  dialogText?: string;
-  edit: boolean;
-}
-
-const DialogComponent: React.FC<IdialogComponent> = (props: IdialogComponent) => {
+const DialogComponent: React.FC<IdialogComponentProps> = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
   const deleteUserWrapper = async () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
     dispatch(deleteUser(props.userId));
     await Router.push('/');
   };
@@ -56,3 +43,14 @@ const DialogComponent: React.FC<IdialogComponent> = (props: IdialogComponent) =>
 };
 
 export default DialogComponent;
+
+interface IdialogComponentProps {
+  open: boolean;
+  handleOpen: () => void;
+  userId: number;
+  name?: string;
+  surname?: string;
+  desc?: string;
+  dialogText?: string;
+  edit: boolean;
+}

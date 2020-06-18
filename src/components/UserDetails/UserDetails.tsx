@@ -13,7 +13,7 @@ import { CreationUserType } from '../../interfaces/index';
 const UserDetails: React.FC = () => {
   const singleUser = useSelector((state: AppStateType) => state.app.singleUser);
   const [userData, setUserData] = useState<CreationUserType>({
-    name: '',
+    name: singleUser.name,
     surname: '',
     desc: '',
   });
@@ -40,7 +40,7 @@ const UserDetails: React.FC = () => {
   };
 
   // at leat some validation
-  const isEmpty = !Object.values(userData).every((x) => x !== null && x !== '');
+  const isEmpty = Object.values(userData).every((x) => x !== null && x !== '');
 
   return (
     <>
@@ -82,7 +82,7 @@ const UserDetails: React.FC = () => {
                     placeholder="Change user name"
                     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
                     // @ts-ignore
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e: React.ChangeEvent) => handleChange(e)}
                     name="name"
                     className={classes.textField}
                   />
@@ -90,7 +90,7 @@ const UserDetails: React.FC = () => {
                     placeholder="Change user surname"
                     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
                     // @ts-ignore
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e: React.ChangeEvent) => handleChange(e)}
                     name="surname"
                     className={classes.textField}
                   />
@@ -98,7 +98,7 @@ const UserDetails: React.FC = () => {
                     placeholder="Change user description"
                     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
                     // @ts-ignore
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e: React.ChangeEvent) => handleChange(e)}
                     name="desc"
                     className={classes.textField}
                     multiline={true}
